@@ -4,7 +4,7 @@
      # 配置druid数据源
    datasource:
      driver-class-name: com.mysql.jdbc.Driver
-     url: jdbc:mysql://192.168.1.108:3306/sht?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
+     url: jdbc:mysql://192.168.1.108:3306/sht?serverTimezone=GMT%2B8&characterEncoding=utf-8
      username: root
      password: etoak
      platform: mysql
