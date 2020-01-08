@@ -27,8 +27,9 @@
        poolPreparedStatements: true
        maxPoolPreparedStatementPerConnectionSize: 20
  mybatis:
-   type-aliases-package: com.example.demo
+   type-aliases-package: com.example.demo.model
    mapper-locations: classpath:/mybatis-mappers/*
    configuration:
+     #  驼峰
      map-underscore-to-camel-case: true
 
