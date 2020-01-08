@@ -16,7 +16,16 @@
        initial-size: 1
        min-idle: 3
        max-active: 20
-       max-wait: 6000
+       max-wait: 60000
+       time-between-eviction-runs-millis: 60000
+       min-evictable-idle-time-millis: 30000
+       validation-query: select 'x'
+       testWhileIdle: true
+       testOnBorrow: false
+       testOnReturn: false
+         # 是否缓存preparedStatement，打开PSCache，并且指定每个连接上PSCache的大小。官方建议MySQL下建议关闭，如果用SQL防火墙 建议打开
+       poolPreparedStatements: true
+       maxPoolPreparedStatementPerConnectionSize: 20
  mybatis:
    type-aliases-package: com.example.demo
    mapper-locations: classpath:/mybatis-mappers/*
