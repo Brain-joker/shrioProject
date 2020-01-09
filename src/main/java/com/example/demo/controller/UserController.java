@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.base.result.Results;
 import com.example.demo.model.SysUser;
 import com.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("user")
@@ -27,8 +30,9 @@ public class UserController {
 
     @GetMapping("/list")
     @ResponseBody
-    public SysUser list(@PathVariable String username) {
-        log.info("UserController.user(): param ( username = " + username +" )");
-        return userService.getUser(username);
+    public Results<SysUser> list() {
+        ArrayList<SysUser> list = new ArrayList<>();
+        list.add(userService.getUser("admin"));
+        return Results.success("success",1000, list);
     }
 }
