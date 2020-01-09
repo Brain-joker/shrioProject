@@ -24,4 +24,11 @@ public class UserController {
         log.info("UserController.user(): param ( username = " + username +" )");
         return userService.getUser(username);
     }
+
+    @GetMapping("/list")
+    @ResponseBody
+    public SysUser list(@PathVariable String username) {
+        log.info("UserController.user(): param ( username = " + username +" )");
+        return userService.getUser(username);
+    }
 }
