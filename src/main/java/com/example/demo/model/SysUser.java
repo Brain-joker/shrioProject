@@ -28,8 +28,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SysUser extends BaseEntity<Long> {
-    private static final long serialVersionUID =
-            -6525908145032868837L;
+
     private String username;
     private String password;
     private String nickname;
@@ -42,6 +41,7 @@ public class SysUser extends BaseEntity<Long> {
     private Integer sex;
     private Integer status;
     private String intro;
+
     public interface Status {
         int DISABLED = 0;
         int VALID = 1;
