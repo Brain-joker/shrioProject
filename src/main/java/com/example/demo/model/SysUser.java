@@ -36,6 +36,16 @@ public class SysUser extends BaseEntity<Long> {
     private String phone;
     private String telephone;
     private String email;
+
+    /**
+     *  @ JsonFormat( pattern=" yyyy-MM-dd", timezone = "GMT+8")
+     *
+     *    pattern:是你需要转换的时间日期的格式
+     *
+     *    timezone：是时间设置为东八区，避免时间在转换中有误差
+     *
+     *   提示：@JsonFormat注解可以在属性的上方，同样可以在属性对应的get方法上，两种方式没有区别
+     */
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     private Integer sex;
