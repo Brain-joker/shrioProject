@@ -23,4 +23,10 @@ public interface UserDao {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     @Insert("insert into sys_user(username, password, nickname, headImgUrl, phone, telephone, email, birthday, sex, status, createTime, updateTime) values(#{username}, #{password}, #{nickname}, #{headImgUrl}, #{phone}, #{telephone}, #{email}, #{birthday}, #{sex}, #{status}, now(), now())")
     int sava(SysUser sysUser);
+
+    @Select("select * from sys_user t where t.telephone = #{telephone}")
+    SysUser getUserByPhone(String telephone);
+
+    @Select("select * from sys_user t where t.email = #{email}")
+    SysUser getUserByEmail(String email);
 }

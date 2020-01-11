@@ -54,16 +54,37 @@ public class UserController {
     @PostMapping(value = "/add")
     @ResponseBody
     public Results<SysUser> saveUser(UserDto userDto, Integer roleId) {
+
+        SysUser sysUser = null;
+
+        //用户名唯一验证
+        sysUser = userService.getUser(userDto.getUsername());
+        if(sysUser != null && !(sysUser.getId().equals(userDto.getId()))){
+            return Results.failure(ResponseCode.USERNAME_REPEAT.getCode(), ResponseCode.USERNAME_REPEAT.getMessage());
+        }
+
+        //手机号码唯一验证
+            sysUser = userService.getUserByPhone(userDto.getTelephone());
+        if(sysUser != null && !(sysUser.getId().equals(userDto.getId()))){
+            return Results.failure(ResponseCode.PHONE_REPEAT.getCode(), ResponseCode.PHONE_REPEAT.getMessage());
+        }
+
+        //邮箱唯一验证
+        sysUser = userService.getUserByEmail(userDto.getEmail());
+        if(sysUser != null && !(sysUser.getId().equals(userDto.getId()))){
+            return Results.failure(ResponseCode.EMAIL_REPEAT.getCode(), ResponseCode.EMAIL_REPEAT.getMessage());
+        }
+
         userDto.setStatus(1);
+        //userDto.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
         userDto.setPassword(MD5.crypt(userDto.getPassword()));
         return userService.save(userDto,roleId);
     }
 
-    String pattern = "yyyy-MM-dd";
-
     //String日期转date
     @InitBinder
     public void initBinder(WebDataBinder binder, WebRequest request) {
+        String pattern = "yyyy-MM-dd";
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat(pattern), true));// CustomDateEditor为自定义日期编辑器
     }
 

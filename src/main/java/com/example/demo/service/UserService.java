@@ -11,4 +11,8 @@ public interface UserService {
     Results<SysUser> getAllUsersByPage(Integer offset, Integer limit);
 
     Results<SysUser> save(SysUser sysUser, Integer roleId);
+
+    SysUser getUserByPhone(String telephone);
+
+    SysUser getUserByEmail(String email);
 }
