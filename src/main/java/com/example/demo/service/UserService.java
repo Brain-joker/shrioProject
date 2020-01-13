@@ -15,4 +15,8 @@ public interface UserService {
     SysUser getUserByPhone(String telephone);
 
     SysUser getUserByEmail(String email);
+
+    SysUser getUserById(Long id);
+
+    Results<SysUser> updateUser(UserDto userDto, Integer roleId);
 }

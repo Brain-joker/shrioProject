@@ -51,7 +51,7 @@
         </div>
     </div>
 </div>
-</body>
+
 <script>
     layui.use('table', function(){
         var table = layui.table,
@@ -77,9 +77,34 @@
                     ,{title:'操作', toolbar: '#barDemo' }
                 ]
             ]
+            /* done:function () {
+                 checkPermission();
+             }*/
         });
-
+        table.on('tool(member)',function (obj) {
+            var data = obj.data;
+            if(obj.event === 'del'){
+                layer.confirm('确定删除吗?',function (index) {
+                    $.ajax({
+                        url: '/user/delete',
+                        type: 'GET',
+                        data: {id:data.id},
+                        dataType: 'JSON',
+                        success:function (result) {
+                            layer.alert("删除成功!",{icon:1},function (index1) {
+                                layer.close(index1);
+                                table.reload('table');
+                            })
+                        }
+                    })
+                });
+            }else if(obj.event === 'edit'){
+                xadmin.open('编辑用户信息','/user/edit/?id='+data.id);
+            }
+        })
     });
 </script>
+
+</body>
 
 </html>

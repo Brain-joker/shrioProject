@@ -88,4 +88,40 @@ public class UserController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat(pattern), true));// CustomDateEditor为自定义日期编辑器
     }
 
+    @GetMapping("/edit")
+    public String editUser(Model model,SysUser sysUser) {
+        model.addAttribute(userService.getUserById(sysUser.getId()));
+        return "user/user-edit";
+    }
+
+    //更新用户信息
+    @PostMapping(value = "/edit")
+    @ResponseBody
+    public Results<SysUser> updateUser(UserDto userDto, Integer roleId) {
+
+        SysUser sysUser = null;
+
+        //用户名唯一验证
+        sysUser = userService.getUser(userDto.getUsername());
+        if(sysUser != null && !(sysUser.getId().equals(userDto.getId()))){
+            return Results.failure(ResponseCode.USERNAME_REPEAT.getCode(), ResponseCode.USERNAME_REPEAT.getMessage());
+        }
+
+        //手机号码唯一验证
+        sysUser = userService.getUserByPhone(userDto.getTelephone());
+        if(sysUser != null && !(sysUser.getId().equals(userDto.getId()))){
+            return Results.failure(ResponseCode.PHONE_REPEAT.getCode(), ResponseCode.PHONE_REPEAT.getMessage());
+        }
+
+        //邮箱唯一验证
+        sysUser = userService.getUserByEmail(userDto.getEmail());
+        if(sysUser != null && !(sysUser.getId().equals(userDto.getId()))){
+            return Results.failure(ResponseCode.EMAIL_REPEAT.getCode(), ResponseCode.EMAIL_REPEAT.getMessage());
+        }
+
+        return userService.updateUser(userDto,roleId);
+    }
+
+
+
 }
