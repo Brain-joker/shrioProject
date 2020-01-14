@@ -80,7 +80,9 @@
             /* done:function () {
                  checkPermission();
              }*/
+
         });
+        //监听工具条
         table.on('tool(member)',function (obj) {
             var data = obj.data;
             if(obj.event === 'del'){
@@ -88,7 +90,9 @@
                     $.ajax({
                         url: '/user/delete',
                         type: 'GET',
-                        data: {id:data.id},
+                        data: {
+                            id:data.id
+                        },
                         dataType: 'JSON',
                         success:function (result) {
                             layer.alert("删除成功!",{icon:1},function (index1) {
@@ -101,6 +105,41 @@
             }else if(obj.event === 'edit'){
                 xadmin.open('编辑用户信息','/user/edit/?id='+data.id);
             }
+        });
+
+        //建庭提交
+        form.on('submit(search)',function (data) {
+            var username = data.field.username;
+            table.render({
+                elem: '#table'
+                ,url: '/user/findUserByFuzzyUserName' //数据接口
+                ,page: true //开启分页
+                ,where:{
+                    "username":username
+                }
+                ,response: {
+                    countName: 'count', //规定数据总数的字段名称，默认：count
+                    dataName: 'datas' //规定数据列表的字段名称，默认：data
+                }
+                ,cols: [
+                    [ //表头
+                        {type: 'checkbox', fixed: 'left'}
+                        ,{field: 'id', title: 'ID', align:'center', width:50}
+                        ,{field: 'username', title: '用户名'}
+                        ,{field: 'telephone', title: '手机'}
+                        ,{field: 'status', title: '状态',  templet:function(d){
+                            return  d.status === 1 ? "启用":"禁用";
+                        }}
+                        ,{field: 'birthday', title: '生日'}
+                        ,{title:'操作', toolbar: '#barDemo' }
+                    ]
+                ]
+                /* done:function () {
+                     checkPermission();
+                 }*/
+
+            });
+            return false;
         })
     });
 </script>

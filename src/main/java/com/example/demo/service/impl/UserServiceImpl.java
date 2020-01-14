@@ -86,5 +86,18 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public int deleteUser(Long id) {
+        //删除roleUser
+        roleUserDao.deleteRoleUserByUserId(id.intValue());
+        //删除user
+        return userDao.deleteUser(id.intValue());
+    }
+
+    @Override
+    public Results<SysUser> getUserByFuzzyUserName(String username, Integer startPosition, Integer limit) {
+        return Results.success(userDao.countUserByFuzzyUserName(username).intValue(),userDao.getUserByFuzzyUserNamePage(username,startPosition,limit));
+    }
+
 
 }

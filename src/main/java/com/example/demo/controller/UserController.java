@@ -95,7 +95,7 @@ public class UserController {
     }
 
     //更新用户信息
-    @PostMapping(value = "/edit")
+    @PostMapping("/edit")
     @ResponseBody
     public Results<SysUser> updateUser(UserDto userDto, Integer roleId) {
 
@@ -122,6 +122,26 @@ public class UserController {
         return userService.updateUser(userDto,roleId);
     }
 
+    //删除
+    @GetMapping("/delete")
+    @ResponseBody
+    public Results deleteUser(UserDto userDto) {
+        int count = userService.deleteUser(userDto.getId());
+        if(count > 0){
+            return Results.success();
+        }else{
+            return Results.failure();
+        }
+
+    }
+
+    @GetMapping("/findUserByFuzzyUserName")
+    @ResponseBody
+    public Results<SysUser> findUserByFuzzyUserName(PageTableRequest pageTableRequest,String username) {
+        log.info("UserController.findUserByFuzzyUserName():param(pageTableRequest1 = "+pageTableRequest+",username="+username+")");
+        pageTableRequest.countOffset();
+        return userService.getUserByFuzzyUserName(username, pageTableRequest.getOffset(),pageTableRequest.getLimit());
+    }
 
 
 }
