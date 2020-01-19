@@ -27,4 +27,20 @@ public class RoleController {
         log.info("RoleController.getAll())");
         return roleService.getAllRoles();
     }
+
+    @GetMapping("/list")
+    @ResponseBody
+    public Results list(PageTableRequest request){
+        log.info("RoleController.list(): param ( request = " + request +" )");
+        request.countOffset();
+        return roleService.getAllRolesByPage(request.getOffset(), request.getLimit());
+    }
+
+    @GetMapping("/findRoleByFuzzyRoleName")
+    @ResponseBody
+    public Results<SysUser> findRoleByFuzzyRoleName(PageTableRequest pageTableRequest,String roleName) {
+        log.info("UserController.findUserByFuzzyUserName():param(pageTableRequest1 = "+pageTableRequest+",username="+roleName+")");
+        pageTableRequest.countOffset();
+        return roleService.findRoleByFuzzyRoleName(roleName, pageTableRequest.getOffset(),pageTableRequest.getLimit());
+    }
 }
