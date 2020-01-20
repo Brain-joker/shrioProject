@@ -30,4 +30,9 @@ public interface RoleDao {
 
 
     int save(RoleDto roleDto);
+
+    @Select("select * from sys_role where id = #{id}")
+    SysRole getRoleById(Integer id);
+
+    int update(RoleDto roleDto);
 }

@@ -53,7 +53,16 @@ public class RoleController {
     @ResponseBody
     public Results<SysRole> addRole(@RequestBody RoleDto roleDto) {
         return roleService.save(roleDto);
+    }
 
-
+    @GetMapping("/edit")
+    public String editRole(Model model,SysRole sysRole) {
+        model.addAttribute("sysRole",roleService.getRoleById(sysRole.getId()));
+        return "role/role-edit";
+    }
+    @PostMapping("/edit")
+    @ResponseBody
+    public Results updateRole(@RequestBody RoleDto roleDto) {
+        return roleService.updateRole(roleDto);
     }
 }

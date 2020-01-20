@@ -8,6 +8,7 @@ import com.example.demo.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,11 +29,11 @@ public class PermissionController {
         return permissionService.listAllPermission();
     }
 
-    @RequestMapping(value = "/listAllPermissionByRoleId",method = RequestMethod.GET) //采用get方法
+    @GetMapping("/listAllPermissionByRoleId") //使用的GetMapping method就可以省略了
     @ResponseBody
     public Results<SysPermission> listAllPermissionByRoleId(RoleDto roleDto){
         log.info(getClass().getName() + " : param =  " + roleDto);
-        return permissionService.listAllPermissionByRoleId(roleDto.getId());
+        return permissionService.listAllPermissionByRoleId(roleDto.getId().intValue());
     }
 
 }

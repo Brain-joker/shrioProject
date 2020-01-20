@@ -60,7 +60,7 @@ function getMenuTree() {
 function initMenuDatas(roleId){
     $.ajax({
         type : 'get',
-        url : '/permission/listAllPermissionByRoleId?id=' + roleId,
+        url : '/permission/listAllPermissionByRoleId?id='+roleId,
         success : function(ret) {
             var data = ret.datas;
             var length = data.length;

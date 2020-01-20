@@ -16,4 +16,8 @@ public interface RoleService {
     Results findRoleByFuzzyRoleName(String roleName, Integer offset, Integer limit);
 
     Results<SysRole> save(RoleDto roleDto);
+
+    SysRole getRoleById(Integer id);
+
+    Results updateRole(RoleDto roleDto);
 }
