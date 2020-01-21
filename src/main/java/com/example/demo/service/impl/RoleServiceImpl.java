@@ -1,10 +1,14 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.base.result.ResponseCode;
 import com.example.demo.base.result.Results;
 import com.example.demo.dao.RoleDao;
 import com.example.demo.dao.RolePermissionDao;
+import com.example.demo.dao.RoleUserDao;
+import com.example.demo.dao.UserDao;
 import com.example.demo.dto.RoleDto;
 import com.example.demo.model.SysRole;
+import com.example.demo.model.SysRoleUser;
 import com.example.demo.model.SysUser;
 import com.example.demo.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,12 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired(required = true)
     private RolePermissionDao rolePermissionDao;
+
+    @Autowired
+    private RoleUserDao roleUserDao;
+
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public Results<SysRole> getAllRoles() {
@@ -79,4 +89,17 @@ public class RoleServiceImpl implements RoleService {
             return Results.failure();
         }
     }
+
+    @Override
+    public Results deleteRole(Integer id) {
+        List<SysRoleUser> datas = roleUserDao.listAllSysRoleUserByRoleId(id);  //根据roleId查询user
+        //如果没有用户关联这个角色  就删除这个角色
+        if(datas.size() <= 0){
+            roleDao.delete(id);
+            return Results.success();
+        }
+        return Results.failure(ResponseCode.USERNAME_REPEAT.USER_ROLE_NO_CLEAR.getCode(),ResponseCode.USERNAME_REPEAT.USER_ROLE_NO_CLEAR.getMessage());
+    }
+
+
 }

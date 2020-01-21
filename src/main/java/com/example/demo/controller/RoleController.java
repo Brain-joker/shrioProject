@@ -4,6 +4,7 @@ import com.example.demo.base.result.PageTableRequest;
 import com.example.demo.base.result.Results;
 import com.example.demo.dto.RoleDto;
 import com.example.demo.model.SysRole;
+import com.example.demo.model.SysRoleUser;
 import com.example.demo.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,11 @@ public class RoleController {
     @ResponseBody
     public Results updateRole(@RequestBody RoleDto roleDto) {
         return roleService.updateRole(roleDto);
+    }
+
+    @GetMapping("/delete")
+    @ResponseBody
+    public Results deleteRole( RoleDto roleDto) {
+        return roleService.deleteRole(roleDto.getId());
     }
 }

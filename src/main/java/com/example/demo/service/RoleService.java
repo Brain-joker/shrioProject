@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.base.result.Results;
 import com.example.demo.dto.RoleDto;
 import com.example.demo.model.SysRole;
+import com.example.demo.model.SysRoleUser;
 import com.example.demo.model.SysUser;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface RoleService {
     SysRole getRoleById(Integer id);
 
     Results updateRole(RoleDto roleDto);
+
+    Results deleteRole(Integer id);
 }

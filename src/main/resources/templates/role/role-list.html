@@ -91,7 +91,7 @@
                         data:{id:data.id},
                         dataType:'json',
                         success:function(result){
-                            if(result.code == 200){
+                            if(result.code === 200){
                                 layer.alert("删除成功", {icon: 1},function (index1) {
                                     layer.close(index1);
                                     //xadmin.father_reload();
