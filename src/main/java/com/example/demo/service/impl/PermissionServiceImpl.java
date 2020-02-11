@@ -35,4 +35,14 @@ public class PermissionServiceImpl implements PermissionService {
     public Results<SysPermission> listAllPermissionByRoleId(Integer roleId) {
         return Results.success(0, permissionDao.listAllPermissionByRoleId(roleId));
     }
+
+    @Override
+    public Results getMenuAll() {
+        return Results.success(0,permissionDao.findAll());
+    }
+
+    @Override
+    public Results<SysPermission> save(SysPermission sysPermission) {
+        return (permissionDao.save(sysPermission) > 0 ) ? Results.success() : Results.failure();
+    }
 }

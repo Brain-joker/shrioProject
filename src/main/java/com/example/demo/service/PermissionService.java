@@ -10,4 +10,8 @@ public interface PermissionService {
     Results<JSONArray> listAllPermission();
 
     Results<SysPermission> listAllPermissionByRoleId(Integer id);
+
+    Results getMenuAll();
+
+    Results<SysPermission> save(SysPermission permission);
 }
